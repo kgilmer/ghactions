@@ -14,7 +14,7 @@ jobs:
     - uses: actions/checkout@master
     - name: Create local changes
       run: |
-        echo boo > "/tmp/$(date).txt"
+        echo boo > "./$(date).txt"
     - name: Commit files
       run: |
         git config --local user.email "action@github.com"
