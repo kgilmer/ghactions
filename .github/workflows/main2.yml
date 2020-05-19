@@ -14,10 +14,9 @@ jobs:
     - uses: actions/checkout@master
     - name: Create local changes
       run: |
-        ...
+        date > $(date).txt
     - name: Commit files
       run: |
-        date > $(date).txt
         git config --local user.email "action@github.com"
         git config --local user.name "GitHub Action"
         git commit -m "Add changes" -a
