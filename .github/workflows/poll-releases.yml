@@ -1,11 +1,12 @@
-# This is a basic workflow to help you get started with Actions
+# Query and sum all releases on repo and append to file with date in local repo.
 
 name: regolith-desktop-release-count-scanner
 
 # Controls when the action will run. Triggers the workflow on push or pull request
 # events but only for the master branch
 on:
-  issues:
+  schedule:
+    - cron: '0 */12 * * *'
 
 jobs:
   build:
@@ -15,7 +16,7 @@ jobs:
     - name: Create local changes
       run: |
         export COUNT=$(curl -s https://api.github.com/repos/regolith-linux/regolith-desktop/releases | egrep 'download_count'  | cut '-d:' -f 2 | sed 's/,/+/' | xargs echo | xargs -I N echo N 0  | bc)
-        echo "$(date),$COUNT" > ./release-count.csv
+        echo "$(date),$COUNT" >> ./release-count.csv
     - name: Commit files
       run: |
         git config --local user.email "action@github.com"
